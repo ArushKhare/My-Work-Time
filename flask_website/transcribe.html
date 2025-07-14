@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Work Time</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+        .navbar {
+      background-color: #6d1b3f; /* Dark maroon */
+      padding: 20px;
+    }
+
+    .navbar-content {
+      display: flex;
+      align-items: center;
+      gap: 60px; /* Space between title and nav links */
+    }
+
+    .navbar h1 {
+      margin: 0;
+      font-size: 1.8em;
+      color: black;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .navbar h1 {
+      color: #f863bf
+    }
+
+    /* Page content */
+    .content {
+      margin-top: 20px;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      margin-left: 20px;
+    }
+
+
+  </style>
+</head>
+<body>
+
+ 
+  <div class="navbar">
+    <div class="navbar-content">
+      <h1>My Work Time</h1>
+      <div class="nav-links">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('transcribe_video') }}">Video Transcriber</a>
+        <a href="{{ url_for('summarize_video') }}">Video Summarizer</a>
+        <a href="{{ url_for('summarize_doc') }}">Document Summarizer</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <h2>Upload a video file to transcribe it!</h2>
+    <form method="POST" action="/transcribe-video" enctype="multipart/form-data">
+      <input type="file" name="file" accept="audio/*" required>
+      <button type="submit">Upload</button>
+    </form>
+    <br>
+  </div>
+
+</body>
+</html>
