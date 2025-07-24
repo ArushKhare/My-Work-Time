@@ -4,7 +4,7 @@ from google import genai #pip install -q -U google-genai
 
 client = genai.Client(api_key="INSERT-YOUR-API-KEY")
 
-#comment out either section of testing as needed
+#comment out any section of testing as needed
 
 # #OCR TESTING------------------------------------------------------------------
 img_path = r"insert/local/image/path/here"
@@ -46,3 +46,21 @@ summary_response = client.models.generate_content(
     
 )
 print(summary_response.text)
+
+#QUIZ QUESTIONS TESTING----------------------------------------------------------
+content_path = r"insert/local/file/path/here"
+
+reader = PdfReader(content_path) #the user-uploaded pdf file
+content = ""
+for page in reader.pages:
+    content += page.extract_text()
+
+quiz_response = client.models.generate_content(
+    model="gemini-2.0-flash",
+    contents=[{
+        "parts": [
+            {"text": content + "\n\nGive me some multiple choice, short answer, fill-in-the-blank, and/or true-or-false quiz questions about the content of the text above and don't say the answers until an answer key at the end of the response. Make sure the correct answer choices are spread out among the options. No prefatory text."}
+        ]
+    }]
+)
+print(quiz_response.text)
