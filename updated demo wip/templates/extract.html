@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Work Time</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui;
+      background-color: #ffdddd;
+    }
+
+    .navbar {
+      background-color: #6d1b3f; /* Dark maroon */
+      padding: 25px;
+    }
+
+    .navbar-content {
+      display: flex;
+      align-items: center;
+      gap: 60px; /* Space between title and nav links */
+    }
+
+    .navbar h1 {
+      margin: 0;
+      font-size: 2.4em;
+      color: black;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 60px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .navbar h1 {
+      color: white;
+    }
+
+    h1 {
+      font-size: 40px;
+    }
+
+    .content {
+      margin: 40px;
+    }
+
+    .animated {
+      animation: slide_fade 0.9s forwards;
+    }
+
+    .buttons {
+      background-color: #a71e5a;
+      color: white;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 18px;
+      transition: background-color 0.25s ease;
+    }
+    
+    .buttons:hover {
+      background-color: #cc1a6a;
+    }
+
+    #load::after {
+      content: "";
+      animation: dots 3s steps(4, end) infinite;
+    }
+
+    @keyframes slide_fade {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes dots {
+      0% { content: ""; }
+      25% { content: "."; }
+      50% { content: ".."; }
+      75% { content: "..."; }
+      100% { content: "..."; }
+    }
+    @keyframes slideBottom {
+      from { transform: translateY(50px); }
+      to { transform: translateY(0); }
+    }
+    @keyframes fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+ 
+  <div class="navbar">
+    <div class="navbar-content">
+      <h1>My Work Time</h1>
+      <div class="nav-links">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('summary') }}">Summarizer</a>
+        <a href="{{ url_for('transcribe') }}">Transcriber</a>
+        <a href="{{ url_for('quiz') }}">Quiz Generator</a>
+        <a href="{{ url_for('extract') }}">Text Extractor</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="animated" id="upload_pdf">
+      <h1>Upload an Image</h1>
+      <form id="upload_form" method="POST" action="/extract-result" enctype="multipart/form-data">
+        <input type="file" id="file_input" name="file" accept="image/*" required>
+        <button class="buttons" type="submit" onclick = "checkUpload()">Upload</button>
+      </form>
+      <br>
+    </div>
+
+    <div class="animated" id="loading" style="display: none">
+      <h1 id="load">Loading</h1>
+    </div>
+  </div>
+
+  <script>
+    function showDiv(div_id) {
+      var elem = document.getElementById(div_id)
+      elem.style.display = "block";
+
+      elem.classList.remove("animated");
+      void elem.offsetWidth;
+      elem.classList.add("animated");      
+    }
+
+    function hideDiv(div_id) {
+      document.getElementById(div_id).style.display = "none";
+    }
+
+    function checkUpload() {
+      const file = document.getElementById('file_input').files[0];
+      if (file) {
+        showDiv('loading');
+        document.getElementById('upload_form').submit()
+      }
+    }
+  </script>
+
+</body>
+</html>
