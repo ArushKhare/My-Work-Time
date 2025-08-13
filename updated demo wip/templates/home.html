@@ -31,7 +31,7 @@
 
     .nav-links {
       display: flex;
-      gap: 40px;
+      gap: 60px;
     }
 
     .nav-links a {
@@ -133,7 +133,9 @@
       <div class="nav-links">
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('summary') }}">Summarizer</a>
+        <a href="{{ url_for('transcribe') }}">Transcriber</a>
         <a href="{{ url_for('quiz') }}">Quiz Generator</a>
+        <a href="{{ url_for('extract') }}">Text Extractor</a>
       </div>
     </div>
   </div>
@@ -159,7 +161,7 @@
       <div class="section">
         <h1>Transcription</h1>
         <p>Listening to a long video or audio file that you'd rather read or parse through as text? Transcribe it with our transcription tools!</p>
-        <form method="POST" action="/summary" enctype="multipart/form-data">
+        <form method="POST" action="/transcribe" enctype="multipart/form-data">
           <button class="buttons" type="submit">Transcribe!</button>
         </form>
       </div>
@@ -173,7 +175,7 @@
       <div class="section">
         <h1>Image-Text OCR</h1>
         <p>Working with images that contain writing or letters you wish you could copy? Extract text from images with our OCR tools!</p>
-        <form method="POST" action="/summary" enctype="multipart/form-data">
+        <form method="POST" action="/extract" enctype="multipart/form-data">
           <button class="buttons" type="submit">Extract!</button>
         </form>
       </div>
