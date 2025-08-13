@@ -11,7 +11,7 @@ import base64
 
 app = Flask(__name__)
 
-client = genai.Client(api_key="AIzaSyBPj27ASsz9FmiTt0vn3sy-HsMYCWlpUqE")
+client = genai.Client(api_key="INSERT-YOUR-KEY")
 model = whisper.load_model("base")
 
 def clean(output):
@@ -191,3 +191,4 @@ def transcribe_result():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
