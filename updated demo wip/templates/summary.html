@@ -31,7 +31,7 @@
 
     .nav-links {
       display: flex;
-      gap: 40px;
+      gap: 60px;
     }
 
     .nav-links a {
@@ -113,41 +113,43 @@
       <div class="nav-links">
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('summary') }}">Summarizer</a>
+        <a href="{{ url_for('transcribe') }}">Transcriber</a>
         <a href="{{ url_for('quiz') }}">Quiz Generator</a>
+        <a href="{{ url_for('extract') }}">Text Extractor</a>
       </div>
     </div>
   </div>
 
   <div class="content">
-<!--     
-    <div class="animated" id="tool_options">
-      <h1>What type of tool are you looking for?</h1>
-      <button class="buttons" onclick = "showDiv('summary_buttons')">Summarization</button>
-      <button class="buttons">Transcription</button>
-      <button class="buttons">Image-Text OCR</button>
-      <button class="buttons" onclick = "showDiv('quiz_buttons')">Quiz Generation</button>
-    </div> -->
 
     <div class="animated" id="summary_buttons">
       <h1>What do you want to summarize?</h2>
       <button class="buttons" onclick = "showDiv('upload_pdf');">PDF Document</button>
-      <button class="buttons">Lecture Video</button>
-      <button class="buttons">Code</button>
-    </div>
-
-    <div class="animated" id="quiz_buttons" style="display: none;">
-      <h1>What file contains the quiz content?</h2>
-      <button class="buttons" onclick = "showDiv('upload_pdf');">PDF Document</button>
-      <button class="buttons">Lecture Video</button>
+      <button class="buttons" onclick = "showDiv('upload_vid/aud');">Video/Audio</button>
+      <button class="buttons" onclick = "showDiv('upload_code');">Code</button>
     </div>
 
     <div class="animated" id="upload_pdf" style="display: none">
       <h1>Upload a PDF document</h1>
-      <form id="upload_form" method="POST" action="/summary-doc" enctype="multipart/form-data">
-        <input type="file" id="file_input" name="file" accept="application/pdf" required>
-        <button class="buttons" type="submit" onclick = "checkUpload()">Upload</button>
+      <form id="pdf" method="POST" action="/summary-result" enctype="multipart/form-data">
+        <input type="file" id="pdf_input" name="file" accept="application/pdf" required>
+        <button class="buttons" type="submit" onclick = "checkUpload('pdf_input','pdf')">Upload</button>
       </form>
       <br>
+    </div>
+
+    <div class="animated" id="upload_vid/aud" style="display: none">
+      <h1>Upload a video or audio file</h1>
+      <form id="vid/aud" method="POST" action="/summary-result" enctype="multipart/form-data">
+        <input type="file" id="vid/aud_input" name="file" accept="audio/*,video/*" required>
+        <button class="buttons" type="submit" onclick = "checkUpload('vid/aud_input','vid/aud')">Upload</button>
+      </form>
+      <br>
+    </div>
+
+    <div class="animated" id="upload_code" style="display: none">
+      <h1>Upload your code</h1>
+      <!-- add code upload form here -->
     </div>
 
     <div class="animated" id="loading" style="display: none">
@@ -169,19 +171,11 @@
       document.getElementById(div_id).style.display = "none";
     }
 
-    // function setUploadAction(tool) {
-    //   if (tool === "summary") {
-    //     document.getElementById("upload_form").action="/summarize-doc"
-    //   } else if (tool === "quiz") {
-    //     document.getElementById("upload_form").action="/quiz-doc"
-    //   }
-    // }
-
-    function checkUpload() {
-      const file = document.getElementById('file_input').files[0];
+    function checkUpload(input_id, form_id) {
+      const file = document.getElementById(input_id).files[0];
       if (file) {
         showDiv('loading');
-        document.getElementById('upload_form').submit()
+        document.getElementById(form_id).submit()
       }
     }
   </script>
