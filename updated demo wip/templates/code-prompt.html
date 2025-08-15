@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   <title>Code Prompt</title>
+   <style>
+    body {
+      margin: 0;
+      font-family: system-ui;
+      background-color: #ffdddd;
+    }
+
+    .navbar {
+      background-color: #6d1b3f; /* Dark maroon */
+      padding: 25px;
+    }
+
+    .navbar-content {
+      display: flex;
+      align-items: center;
+      gap: 60px; /* Space between title and nav links */
+    }
+
+    .navbar h1 {
+      margin: 0;
+      font-size: 2.4em;
+      color: black;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 60px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .navbar h1 {
+      color: white;
+    }
+
+    h1 {
+      font-size: 40px;
+    }
+
+    .content {
+      margin: 40px;
+    }
+
+    .animated {
+      animation: slide_fade 0.9s forwards;
+    }
+
+    .buttons {
+      background-color: #a71e5a;
+      color: white;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 18px;
+      transition: background-color 0.25s ease;
+    }
+    
+    .buttons:hover {
+      background-color: #cc1a6a;
+    }
+
+    #load::after {
+      content: "";
+      animation: dots 3s steps(4, end) infinite;
+    }
+
+    @keyframes slide_fade {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes dots {
+      0% { content: ""; }
+      25% { content: "."; }
+      50% { content: ".."; }
+      75% { content: "..."; }
+      100% { content: "..."; }
+    }
+    @keyframes slideBottom {
+      from { transform: translateY(50px); }
+      to { transform: translateY(0); }
+    }
+    @keyframes fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+    <form method="POST" action="/code-prompt">
+        <textarea name="text_input" rows="6" cols="60" placeholder="Enter your prompt here"></textarea>
+        <br>
+        <button type="submit">Generate Code</button>
+    </form>
+
+    {% if result %}
+        <h3>Generated Code:</h3>
+        <pre>{{ result }}</pre>
+    {% endif %}
+</body>
+</html>
