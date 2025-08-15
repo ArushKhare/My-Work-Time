@@ -1,3 +1,5 @@
+
+
 from flask import *
 import whisper
 import pymupdf4llm as p4
@@ -11,7 +13,7 @@ import base64
 
 app = Flask(__name__)
 
-client = genai.Client(api_key="INSERT-YOUR-KEY")
+client = genai.Client(api_key="AIzaSyBRYOxOU4PpBtxpEr-9a-fVcLJ3KeuuVps")
 model = whisper.load_model("base")
 
 def clean(output):
@@ -58,6 +60,7 @@ def extract_text(encoded_img):
     )
     return ocr_response.text
 
+
 def get_doc_summary(name):
 
     reader = PdfReader(name)
@@ -99,6 +102,20 @@ def get_img_txt(name):
 
     text = extract_text(encoded_image_string)
     return clean(text)
+
+def generate_code(request):
+    pipe = pipeline(
+    "text-generation",
+    model="openai/gpt-oss-20b",
+    torch_dtype="auto",
+    device_map="auto",)
+    messages = [
+    {"role": "user", "content": "Could you please generate code that answers this prompt? Prompt: " + request},]
+
+    outputs = pipe(
+    messages,
+    max_new_tokens=256,)
+    return outputs[0]["generated_text"]
 
 @app.route("/")
 def home():
@@ -189,6 +206,13 @@ def transcribe_result():
 
     return render_template("transcribe-result.html")
 
+@app.route("/code-prompt", methods=["POST", "GET"])
+def code_prompt():
+    result = None
+    if request.method == "POST":
+        user_text = request.form.get("text_input")
+        result = generate_code(user_text)  # Your code generation function
+    return render_template("code-prompt.html", result=result)
+
 if __name__ == "__main__":
     app.run(debug=True)
-
