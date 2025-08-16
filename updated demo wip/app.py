@@ -14,7 +14,7 @@ import io
 
 app = Flask(__name__)
 
-client = genai.Client(api_key="AIzaSyBRYOxOU4PpBtxpEr-9a-fVcLJ3KeuuVps")
+client = genai.Client(api_key="ENTER-KEY")
 model = whisper.load_model("base")
 
 def clean(output):
@@ -244,3 +244,4 @@ def code():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
