@@ -82,6 +82,12 @@
       margin-bottom: 60px;
     }
 
+    .explore2 {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 60px;
+    }
+
     .section {
       flex: 1;
       padding: 0px;
@@ -136,7 +142,7 @@
         <a href="{{ url_for('transcribe') }}">Transcriber</a>
         <a href="{{ url_for('quiz') }}">Quiz Generator</a>
         <a href="{{ url_for('extract') }}">Text Extractor</a>
-        <a href="{{ url_for('code-prompt') }}">Code Stuff</a>
+        <a href="{{ url_for('code') }}">Code Helper</a>
       </div>
     </div>
   </div>
@@ -173,6 +179,8 @@
           <button class="buttons" type="submit">Quiz!</button>
         </form>
       </div>
+    </div>
+    <div class="explore2">
       <div class="section">
         <h1>Image-Text OCR</h1>
         <p>Working with images that contain writing or letters you wish you could copy? Extract text from images with our OCR tools!</p>
@@ -180,6 +188,14 @@
           <button class="buttons" type="submit">Extract!</button>
         </form>
       </div>
+      <div class="section">
+        <h1>Coding Help</h1>
+        <p>Struggling to write some code? Can't understand what your code is doing? Get help with these situations and more with our Code Helper!</p>
+        <form method="POST" action="/code" enctype="multipart/form-data">
+          <button class="buttons" type="submit">Code!</button>
+        </form>
+      </div>
+      <div class="section"></div>
     </div>
     <hr>
   </div>
