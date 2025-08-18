@@ -29,14 +29,13 @@ Text explanation
 
 From the home page we have different buttons that take us to various modules. One for summarization, one for making quiz questions, one for video transcription and one for coding applications.
 
-For summarization: Click the summarize button which will take you to the summarization module. Then click either the “PDF Document” button or the “Video/Audio” button based on the type of the input you want a summary of.
+<ins>For summarization</ins>: Click the summarize button which will take you to the summarization module. Then click either the “PDF Document” button or the “Video/Audio” button based on the type of the input you want a summary of.
 
+<ins>For transcription</ins>: Click the Transcriber button which will take you to the transcription module. Then upload the audio or video file to obtain a transcription of the input.
 
-For transcription: Click the Transcriber button which will take you to the transcription module. Then upload the audio or video file to obtain a transcription of the input.
+<ins>For quiz generation</ins>: Click the Quiz Generator button which will take you to the quiz generation module. Then click either the “PDF Document” button or the “Video/Audio” button based on the type of the input you want a quiz for.
 
-For quiz generation: Click the Quiz Generator button which will take you to the quiz generation module. Then click either the “PDF Document” button or the “Video/Audio” button based on the type of the input you want a quiz for.
-
-For image transcription:  Click the Text Extractor button which will take you to the image transcription module. Then upload the image file to obtain a transcription of the input.
+<ins>For image transcription</ins>:  Click the Text Extractor button which will take you to the image transcription module. Then upload the image file to obtain a transcription of the input.
 
 ## About the Team
 
