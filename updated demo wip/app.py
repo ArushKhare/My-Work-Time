@@ -9,12 +9,11 @@ import torch
 from pypdf import PdfReader
 from google import genai
 import base64
-from docx import Document
 import io
 
 app = Flask(__name__)
 
-client = genai.Client(api_key="ENTER-KEY")
+client = genai.Client(api_key="ENTER-YOUR-KEY-HERE")
 model = whisper.load_model("base")
 
 def clean(output):
@@ -53,7 +52,7 @@ def extract_text(encoded_img):
             "parts": [
                 {"text": "Tell me what this image says and nothing else"},
                 {"inline_data": {
-                    "mime_type": "image/png", #change to image/png,webp,etc. 
+                    "mime_type": "image/png",
                     "data": encoded_img
                 }}
             ]
@@ -103,34 +102,38 @@ def get_img_txt(name):
     text = extract_text(encoded_image_string)
     return clean(text)
 
-def download_quiz(quiz):
-    doc = Document()
-    doc.add_paragraph(quiz)
-
-    buffer = io.BytesIO()
-    doc.save(buffer)
-    buffer.seek(0)
-
-    return send_file(
-        buffer,
-        as_attachment=True,
-        download_name="my_quiz.docx",
-        mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+def summarize_code(request):
+    summarized_response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=[{
+            "parts": [
+                {"text": "Could you give me a summary explaining what the following code does: \n\n" + request},
+            ]
+        }]
     )
+    return summarized_response.text.replace('**', '')
 
 def generate_code(request):
-    pipe = pipeline(
-    "text-generation",
-    model="openai/gpt-oss-20b",
-    torch_dtype="auto",
-    device_map="auto",)
-    messages = [
-    {"role": "user", "content": "Could you please generate code that answers this prompt? Prompt: " + request},]
+    code_response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=[{
+            "parts": [
+                {"text": "Could you please generate code that answers this prompt? Omit key improvements and explanations unless they're in the comments of the code, and don't write the response in markdown:. \n\n Prompt:\n " + request},
+            ]
+        }]
+    )
+    return code_response.text
 
-    outputs = pipe(
-    messages,
-    max_new_tokens=256,)
-    return outputs[0]["generated_text"]
+def translate_code(language, request):
+    translated_response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=[{
+            "parts": [
+                {"text": "Could you please translate the following code to the " + language + "coding language instead? Omit key improvements and explanations unless they're in the comments of the code, and don't write the response in markdown: \n\n Code: \n\n" + request},
+            ]
+        }]
+    )
+    return translated_response.text
 
 @app.route("/")
 def home():
@@ -187,10 +190,6 @@ def quiz_result():
     
     return render_template("quiz-result.html")
 
-@app.route("/quiz-download", methods=["POST", "GET"])
-def quiz_download():
-    return download_quiz("testing")
-
 @app.route("/extract", methods=["POST", "GET"])
 def extract():
     return render_template('extract.html')
@@ -234,14 +233,13 @@ def code():
         user_text = request.form.get("text_input")
         action = request.form.get("submit")
         if (action == "summarize"):
-            result = user_text
+            result = summarize_code(user_text)
         elif (action == "generate"):
-            #result = generate_code(user_text)
-            result = user_text
+            result = generate_code(user_text)
         elif (action == "translate"):
-            result = user_text
+            language = request.form.get("language")
+            result = translate_code(language, user_text)
     return render_template("code.html", result=result, action=action)
 
 if __name__ == "__main__":
     app.run(debug=True)
-
