@@ -19,6 +19,8 @@ To install My Work Time, fork the Github Repo and use an IDE of choice to open t
 
 Then, obtain a Google API key. Follow [these](https://ai.google.dev/gemini-api/docs/api-key) instructions to obtain a key. Remember to save your API key in a secure location. Go to the app.py file and replace “ENTER-KEY” with your Gemini API key.
 
+For video/audio files to properly be uploaded to the website you need to download FFMPEG. Here are the [instructions](https://www.gyan.dev/ffmpeg/builds/).
+
 Finally, run the app.py file to launch the website. Use the website link in your IDE’s terminal to launch the website in your web browser. You are all set to use the website!
 
 ## Usage
