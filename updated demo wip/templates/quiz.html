@@ -95,14 +95,6 @@
       75% { content: "..."; }
       100% { content: "..."; }
     }
-    @keyframes slideBottom {
-      from { transform: translateY(50px); }
-      to { transform: translateY(0); }
-    }
-    @keyframes fade {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
   </style>
 </head>
 <body>
@@ -124,8 +116,8 @@
   <div class="content">
     <div class="animated" id="quiz_buttons">
       <h1>What file contains the quiz content?</h2>
-      <button class="buttons" onclick = "showDiv('upload_pdf');">PDF Document</button>
-      <button class="buttons" onclick = "showDiv('upload_vid/aud');">Video/Audio</button>
+      <button class="buttons" onclick = "showDiv('upload_pdf'); hideDiv('upload_vid/aud');">PDF Document</button>
+      <button class="buttons" onclick = "showDiv('upload_vid/aud'); hideDiv('upload_pdf');">Video/Audio</button>
     </div>
 
     <div class="animated" id="upload_pdf" style="display: none">
@@ -176,4 +168,3 @@
 
 </body>
 </html>
-
