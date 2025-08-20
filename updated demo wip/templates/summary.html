@@ -95,14 +95,6 @@
       75% { content: "..."; }
       100% { content: "..."; }
     }
-    @keyframes slideBottom {
-      from { transform: translateY(50px); }
-      to { transform: translateY(0); }
-    }
-    @keyframes fade {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
   </style>
 </head>
 <body>
@@ -125,9 +117,8 @@
 
     <div class="animated" id="summary_buttons">
       <h1>What do you want to summarize?</h2>
-      <button class="buttons" onclick = "showDiv('upload_pdf');">PDF Document</button>
-      <button class="buttons" onclick = "showDiv('upload_vid/aud');">Video/Audio</button>
-      <button class="buttons" onclick = "showDiv('upload_code');">Code</button>
+      <button class="buttons" onclick = "showDiv('upload_pdf'); hideDiv('upload_vid/aud');">PDF Document</button>
+      <button class="buttons" onclick = "showDiv('upload_vid/aud'); hideDiv('upload_pdf');">Video/Audio</button>
     </div>
 
     <div class="animated" id="upload_pdf" style="display: none">
@@ -146,11 +137,6 @@
         <button class="buttons" type="submit" onclick = "checkUpload('vid/aud_input','vid/aud')">Upload</button>
       </form>
       <br>
-    </div>
-
-    <div class="animated" id="upload_code" style="display: none">
-      <h1>Upload your code</h1>
-      <!-- add code upload form here -->
     </div>
 
     <div class="animated" id="loading" style="display: none">
@@ -183,4 +169,3 @@
 
 </body>
 </html>
-
