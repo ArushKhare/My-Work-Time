@@ -150,26 +150,26 @@
 
       <div class="animated" id="code_buttons">
         <h1>What coding tool would you like to use?</h1>
-        <button class="buttons" onclick = "showDiv('summarize_code');">Code Summarization</button>
-        <button class="buttons" onclick = "showDiv('generate_code');">Code Generation</button>
-        <button class="buttons" onclick = "showDiv('translate_code');">Code Translation</button>
+        <button class="buttons" onclick = "showDiv('summarize_code'); hideDiv('generate_code'); hideDiv('translate_code');">Code Summarization</button>
+        <button class="buttons" onclick = "showDiv('generate_code'); hideDiv('summarize_code'); hideDiv('translate_code');">Code Generation</button>
+        <button class="buttons" onclick = "showDiv('translate_code'); hideDiv('generate_code'); hideDiv('summarize_code');">Code Translation</button>
       </div>
 
       <div class="animated" id="summarize_code" style="display: none">
         <h1>Enter the code you want to summarize below:</h1>
         <form method="POST" action="/code">
-          <textarea name="text_input" rows="12" cols="120" placeholder="Enter your code here"></textarea>
+          <textarea id="summarize_input" name="text_input" rows="12" cols="120" placeholder="Enter your code here" required></textarea>
           <br><br>
-          <button class="buttons" type="submit" name="submit" value="summarize" onclick = "showDiv('summarized');">Summarize Code</button>
+          <button class="buttons" type="submit" name="submit" value="summarize" onclick = "checkInput('summarize_input');">Summarize Code</button>
         </form>
       </div>
 
       <div class="animated" id="generate_code" style="display: none">
         <h1>Enter the prompt for the code you want to generate below:</h1>
         <form method="POST" action="/code">
-          <textarea name="text_input" rows="12" cols="120" placeholder="Enter your prompt here"></textarea>
+          <textarea id="generate_input" name="text_input" rows="12" cols="120" placeholder="Enter your prompt here" required></textarea>
           <br><br>
-          <button class="buttons" type="submit" name="submit" value="generate" onclick = "showDiv('generated');">Generate Code</button>
+          <button class="buttons" type="submit" name="submit" value="generate" onclick = "checkInput('generate_input');">Generate Code</button>
         </form>
       </div>
 
@@ -185,9 +185,9 @@
             <option value="C#">C#</option>
           </select>
           <h1>Enter the code you want to translate below:</h1>
-          <textarea name="text_input" rows="12" cols="120" placeholder="Enter your code here"></textarea>
+          <textarea id="translate_input" name="text_input" rows="12" cols="120" placeholder="Enter your code here" required></textarea>
           <br><br>
-          <button class="buttons" type="submit" name="submit" value="translate" onclick = "showDiv('translated');">Translate Code</button>
+          <button class="buttons" type="submit" name="submit" value="translate" onclick = "checkInput('translate_input');">Translate Code</button>
         </form>
       </div>
 
@@ -213,13 +213,14 @@
       document.getElementById(div_id).style.display = "none";
     }
 
-    function checkUpload(input_id, form_id) {
-      const file = document.getElementById(input_id).files[0];
-      if (file) {
+    function checkInput(input_id) {
+      const text = document.getElementById(input_id).value;
+      if (text.trim()) {
         showDiv('loading');
-        document.getElementById(form_id).submit()
       }
     }
+
+    hideDiv('loading')
   </script>
 
 </body>
