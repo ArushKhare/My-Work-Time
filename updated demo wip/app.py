@@ -1,20 +1,16 @@
 from flask import *
 import whisper
-import pymupdf4llm as p4
-import nltk
 import tempfile
 import os
 from transformers import pipeline
-import torch
 from pypdf import PdfReader
 from google import genai
 import base64
-import io
 
 app = Flask(__name__)
 
-client = genai.Client(api_key="ENTER-YOUR-KEY-HERE")
-model = whisper.load_model("base")
+client = genai.Client()
+model = whisper.load_model("tiny")
 
 def clean(output):
     output = output.replace('##', '')
@@ -184,7 +180,7 @@ def quiz_result():
         elif file_upload.mimetype == "application/pdf":
             result = get_doc_quiz(file_upload)
 
-        template = f"<p class='animated' id='quiz'>{result}</p> \ <button onclick='window.location.href='/quiz-download'>Download Word Document</button>" 
+        template = f"<p class='animated' id='quiz'>{result}</p>" 
 
         return render_template('quiz-result.html') + template
     
@@ -242,4 +238,4 @@ def code():
     return render_template("code.html", result=result, action=action)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
