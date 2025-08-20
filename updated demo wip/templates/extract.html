@@ -95,14 +95,6 @@
       75% { content: "..."; }
       100% { content: "..."; }
     }
-    @keyframes slideBottom {
-      from { transform: translateY(50px); }
-      to { transform: translateY(0); }
-    }
-    @keyframes fade {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
   </style>
 </head>
 <body>
@@ -124,7 +116,7 @@
   <div class="content">
 
     <div class="animated" id="upload_pdf">
-      <h1>Upload an Image</h1>
+      <h1>Upload an Image for Text Extraction</h1>
       <form id="upload_form" method="POST" action="/extract-result" enctype="multipart/form-data">
         <input type="file" id="file_input" name="file" accept="image/*" required>
         <button class="buttons" type="submit" onclick = "checkUpload()">Upload</button>
@@ -161,5 +153,4 @@
   </script>
 
 </body>
-
 </html>
