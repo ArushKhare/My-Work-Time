@@ -8,7 +8,7 @@ My Work Time is a Flask-based web application that leverages Natural Language Pr
 - Summarize PDF documents, videos and audios
 - Summarize your code
 - Transcribe audio and video
-- Generative quiz questions based on the input (PDF document, video, audio)
+- Generate quiz questions based on the input (PDF document, video, audio)
 - Extract text from images
 - Generate code from prompts
 - Translate code from one language to another
@@ -24,8 +24,6 @@ For video/audio files to properly be uploaded to the website you need to downloa
 Finally, run the app.py file to launch the website. Use the website link in your IDE’s terminal to launch the website in your web browser. You are all set to use the website!
 
 ## Usage
-
-Video explanation
 
 Text explanation
 
