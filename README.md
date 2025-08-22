@@ -25,8 +25,6 @@ Finally, run the app.py file to launch the website. Use the website link in your
 
 ## Usage
 
-Text explanation
-
 From the home page we have different buttons that take us to various modules. One for summarization, one for making quiz questions, one for video transcription and one for coding applications.
 
 <ins>For summarization</ins>: Click the summarize button which will take you to the summarization module. Then click either the “PDF Document” button or the “Video/Audio” button based on the type of the input you want a summary of.
